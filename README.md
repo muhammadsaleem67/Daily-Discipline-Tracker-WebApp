@@ -254,6 +254,33 @@ npm run build
 
 ---
 
+## 📱 Android APK & Installation Guide
+
+Daily Discipline is fully equipped as an installable **Android WebAPK** and Progressive Web App with standalone execution, splash screen, offline caching, and native launcher icons.
+
+### Option 1: Direct Android Install (1-Tap WebAPK — No Sideloading Required)
+Google Chrome and Android's OS package PWAs directly into native **WebAPKs** with full app sandboxing, launcher presence, and fullscreen display:
+1. Open the app URL on your Android device in **Google Chrome** or **Samsung Internet**.
+2. Tap the **"Install Android App"** banner at the top of the dashboard (or tap browser menu **⋮** > **"Install app"** / **"Add to Home screen"**).
+3. Android will automatically package and install **Daily Discipline** as a native app on your phone.
+4. The app opens without browser URL bars, runs offline, and retains your private routines permanently.
+
+### Option 2: Generate a Standalone Signed `.apk` File (Google Play / Sideloading)
+To generate a standalone `.apk` or `.aab` package for distribution or local APK installation:
+
+```bash
+# 1. Build the production distribution
+npm run build
+
+# 2. Package into native Android APK via Google's official Bubblewrap (TWA)
+npx @bubblewrap/cli init --manifest=https://<your-app-url>/manifest.webmanifest
+npx @bubblewrap/cli build
+
+# Output: app-release-signed.apk ready to install or upload to Google Play Store
+```
+
+---
+
 ## 🔒 Data Privacy Note
 
 All habits, notes, prayer times, and logs are stored privately in user-partitioned local storage. No tracking data is shared across user accounts or uploaded to unauthorized third parties. Exporting your JSON file from **Settings > Data Management** gives you complete ownership and portability over your performance history.

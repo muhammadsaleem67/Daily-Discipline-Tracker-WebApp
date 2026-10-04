@@ -10,6 +10,7 @@ import { CoursesView } from './components/courses/CoursesView';
 import { SettingsView } from './components/settings/SettingsView';
 import { AuthModal } from './components/auth/AuthModal';
 import { MilestoneModal } from './components/common/MilestoneModal';
+import { OfflineIndicator } from './components/common/OfflineIndicator';
 
 const MainLayout: React.FC = () => {
   const [currentTab, setCurrentTab] = useState<ViewTab>('today');
@@ -51,6 +52,9 @@ const MainLayout: React.FC = () => {
         days={milestoneToCelebrate}
         onClose={clearCelebration}
       />
+
+      {/* Offline Status Toast */}
+      <OfflineIndicator />
     </div>
   );
 };

@@ -2,6 +2,7 @@ import React from 'react';
 import { LayoutDashboard, BarChart2, GraduationCap, Settings, User } from 'lucide-react';
 import { ViewTab } from '../../types';
 import { useAuth } from '../../context/AuthContext';
+import { PWAInstallButton } from '../common/PWAInstallButton';
 
 interface MobileNavProps {
   currentTab: ViewTab;
@@ -52,13 +53,16 @@ export const MobileNav: React.FC<MobileNavProps> = ({
           </span>
         </div>
 
-        <button
-          onClick={onOpenAuth}
-          className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#4D2A00] border border-[#6E3B00] text-xs font-semibold text-[#F9E6A8]"
-        >
-          <User className="w-3.5 h-3.5 text-[#F2A900]" />
-          <span className="truncate max-w-[80px]">{user ? user.name.split(' ')[0] : 'Sign In'}</span>
-        </button>
+        <div className="flex items-center gap-2">
+          <PWAInstallButton variant="compact" />
+          <button
+            onClick={onOpenAuth}
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#4D2A00] border border-[#6E3B00] text-xs font-semibold text-[#F9E6A8]"
+          >
+            <User className="w-3.5 h-3.5 text-[#F2A900]" />
+            <span className="truncate max-w-[70px]">{user ? user.name.split(' ')[0] : 'Sign In'}</span>
+          </button>
+        </div>
       </header>
 
       {/* Mobile Bottom Tab Bar */}

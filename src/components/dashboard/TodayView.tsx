@@ -6,6 +6,7 @@ import { PhaseModuleCard } from './PhaseModuleCard';
 import { ConsistencyHeatmap } from './ConsistencyHeatmap';
 import { WeeklyBarChart } from './WeeklyBarChart';
 import { DailyNotesCard } from './DailyNotesCard';
+import { PWAInstallButton } from '../common/PWAInstallButton';
 import { useData } from '../../context/DataContext';
 import { getApplicableTasksForDate } from '../../utils/date';
 import { Task } from '../../types';
@@ -41,6 +42,9 @@ export const TodayView: React.FC = () => {
     <div className="flex flex-col gap-6">
       {/* 1. Hero Dashboard Header */}
       <HeaderBanner />
+
+      {/* Android / PWA Install Prompt Banner */}
+      <PWAInstallButton variant="banner" />
 
       {/* 2. Top Stats: Streak Card & Secondary Metrics */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">

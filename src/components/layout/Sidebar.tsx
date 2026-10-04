@@ -12,6 +12,7 @@ import {
 import { ViewTab } from '../../types';
 import { useAuth } from '../../context/AuthContext';
 import { useData } from '../../context/DataContext';
+import { PWAInstallButton } from '../common/PWAInstallButton';
 
 interface SidebarProps {
   currentTab: ViewTab;
@@ -104,7 +105,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
       </div>
 
       {/* User profile / Footer */}
-      <div className="pt-4 border-t border-[#6E3B00]/50 flex flex-col gap-2">
+      <div className="pt-4 border-t border-[#6E3B00]/50 flex flex-col gap-2.5">
+        <PWAInstallButton variant="sidebar" />
+
         {user ? (
           <div className="bg-[#4D2A00]/50 border border-[#6E3B00]/50 rounded-xl p-3 flex items-center justify-between">
             <div className="flex items-center gap-2.5 min-w-0">
