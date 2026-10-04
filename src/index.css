@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --teal-darkest: #082226;
+    --teal-deep: #0D5C63;
+    --teal-surface: #247B7B;
+    --teal-accent: #44A1A0;
+    --teal-bright: #78CDD7;
+    --teal-offwhite: #FFFFFA;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    background-color: #082226;
+    color: #FFFFFA;
+  }
+}
+
+/* Custom scrollbars with teal styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #082226;
+}
+::-webkit-scrollbar-thumb {
+  background: #247B7B;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #44A1A0;
+}
