@@ -32,7 +32,6 @@ export const HeaderBanner: React.FC = () => {
 
   const isToday = selectedDateStr === todayDateStr;
 
-  // Day progress computation
   const applicableTasks = useMemo(() => {
     return getApplicableTasksForDate(effectiveTasks, selectedDateStr);
   }, [effectiveTasks, selectedDateStr]);
@@ -41,14 +40,12 @@ export const HeaderBanner: React.FC = () => {
     return calculateDayProgress(selectedDateLog, applicableTasks);
   }, [selectedDateLog, applicableTasks]);
 
-  // Evening warning check: if viewing today, local hour >= 18, and completion < 75%
   const showEveningWarning = useMemo(() => {
     if (!isToday || selectedDateLog.paused) return false;
     const currentHour = new Date().getHours();
     return currentHour >= 18 && progress.percentage < 75;
   }, [isToday, selectedDateLog.paused, progress.percentage]);
 
-  // Motivational quote based on date hash
   const quote = useMemo(() => {
     const sum = selectedDateStr
       .split('')
@@ -56,7 +53,6 @@ export const HeaderBanner: React.FC = () => {
     return MOTIVATIONAL_QUOTES[sum % MOTIVATIONAL_QUOTES.length];
   }, [selectedDateStr]);
 
-  // Date navigation handlers
   const handleShiftDate = (days: number) => {
     const [y, m, d] = selectedDateStr.split('-').map(Number);
     const dateObj = new Date(y, m - 1, d);
@@ -72,55 +68,54 @@ export const HeaderBanner: React.FC = () => {
   return (
     <div className="flex flex-col gap-3">
       {/* Top Banner Box */}
-      <div className="bg-[#0D5C63]/90 border border-[#247B7B]/70 rounded-2xl p-5 md:p-6 backdrop-blur-md relative overflow-hidden shadow-xl">
-        {/* Subtle decorative radial gradient */}
-        <div className="absolute top-0 right-1/4 w-80 h-80 bg-[#44A1A0]/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="bg-[#4D2A00]/85 border border-[#6E3B00] rounded-2xl p-5 md:p-6 backdrop-blur-md relative overflow-hidden shadow-xl">
+        {/* Subtle decorative warm golden gradient */}
+        <div className="absolute top-0 right-1/4 w-80 h-80 bg-[#F2A900]/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 relative z-10">
           {/* Left Column: Greeting, Title, Motivation */}
           <div className="flex-1">
-            <div className="flex flex-wrap items-center gap-2 mb-1.5 text-xs text-[#78CDD7] font-semibold tracking-wider uppercase">
+            <div className="flex flex-wrap items-center gap-2 mb-1.5 text-xs text-[#F2A900] font-semibold tracking-wider uppercase">
               <span>{user ? `Officer / ${user.name}` : 'Operator'}</span>
               <span>·</span>
               <span>{formatDateDisplay(selectedDateStr)}</span>
               {!isToday && (
                 <button
                   onClick={() => setSelectedDateStr(todayDateStr)}
-                  className="inline-flex items-center gap-1 text-[11px] text-[#FFFFFA] bg-[#082226] px-2 py-0.5 rounded border border-[#247B7B] hover:bg-[#103b41] transition-colors"
+                  className="inline-flex items-center gap-1 text-[11px] text-[#F9E6A8] bg-[#1B0F03] px-2 py-0.5 rounded border border-[#6E3B00] hover:bg-[#331C00] transition-colors"
                 >
-                  <RotateCcw className="w-3 h-3 text-[#78CDD7]" />
+                  <RotateCcw className="w-3 h-3 text-[#F2A900]" />
                   Return to Today
                 </button>
               )}
             </div>
 
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#FFFFFA] tracking-tight leading-tight">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#F9E6A8] tracking-tight leading-tight">
               Command the routine. <br className="hidden sm:inline" />
-              <span className="text-[#78CDD7]">Own the outcome.</span>
+              <span className="text-[#F2A900]">Own the outcome.</span>
             </h1>
 
-            <p className="mt-2 text-sm text-[#FFFFFA]/80 max-w-xl font-normal leading-relaxed">
+            <p className="mt-2 text-sm text-[#F9E6A8]/80 max-w-xl font-normal leading-relaxed">
               "{quote}"
             </p>
 
             {/* Date Controller & Actions */}
             <div className="mt-4 flex flex-wrap items-center gap-2.5">
-              {/* Prev / Next Date Stepper */}
-              <div className="inline-flex items-center bg-[#082226]/80 border border-[#247B7B]/60 rounded-lg p-1">
+              <div className="inline-flex items-center bg-[#1B0F03]/90 border border-[#6E3B00]/70 rounded-lg p-1">
                 <button
                   onClick={() => handleShiftDate(-1)}
-                  className="p-1.5 rounded hover:bg-[#103b41] text-[#FFFFFA]/80 hover:text-[#78CDD7] transition-colors"
+                  className="p-1.5 rounded hover:bg-[#331C00] text-[#F9E6A8]/80 hover:text-[#F2A900] transition-colors"
                   title="Previous Day"
                 >
                   <ChevronLeft className="w-4 h-4" />
                 </button>
-                <div className="px-3 text-xs font-semibold text-[#FFFFFA] tabular-nums flex items-center gap-1.5">
-                  <Calendar className="w-3.5 h-3.5 text-[#78CDD7]" />
+                <div className="px-3 text-xs font-semibold text-[#F9E6A8] tabular-nums flex items-center gap-1.5">
+                  <Calendar className="w-3.5 h-3.5 text-[#F2A900]" />
                   <span>{isToday ? 'Today' : selectedDateStr}</span>
                 </div>
                 <button
                   onClick={() => handleShiftDate(1)}
-                  className="p-1.5 rounded hover:bg-[#103b41] text-[#FFFFFA]/80 hover:text-[#78CDD7] transition-colors"
+                  className="p-1.5 rounded hover:bg-[#331C00] text-[#F9E6A8]/80 hover:text-[#F2A900] transition-colors"
                   title="Next Day"
                 >
                   <ChevronRight className="w-4 h-4" />
@@ -132,8 +127,8 @@ export const HeaderBanner: React.FC = () => {
                 onClick={() => togglePauseDay(selectedDateStr)}
                 className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-semibold transition-all border ${
                   selectedDateLog.paused
-                    ? 'bg-[#44A1A0] text-[#082226] border-[#78CDD7] shadow-md'
-                    : 'bg-[#082226]/80 text-[#FFFFFA]/90 border-[#247B7B]/60 hover:bg-[#103b41] hover:text-[#FFFFFA]'
+                    ? 'bg-[#CC6F00] text-[#1B0F03] border-[#F2A900] shadow-md font-bold'
+                    : 'bg-[#1B0F03]/90 text-[#F9E6A8]/90 border-[#6E3B00]/70 hover:bg-[#331C00] hover:text-[#F9E6A8]'
                 }`}
                 title="Pause tracking for sick day, travel, or planned recovery without breaking streak"
               >
@@ -153,7 +148,7 @@ export const HeaderBanner: React.FC = () => {
           </div>
 
           {/* Right Column: Hero Ring Progress */}
-          <div className="flex items-center gap-5 sm:gap-7 bg-[#082226]/60 border border-[#247B7B]/50 rounded-xl p-4 sm:p-5 w-full sm:w-auto justify-between sm:justify-start">
+          <div className="flex items-center gap-5 sm:gap-7 bg-[#1B0F03]/75 border border-[#6E3B00]/60 rounded-xl p-4 sm:p-5 w-full sm:w-auto justify-between sm:justify-start">
             <CircularProgress
               percentage={selectedDateLog.paused ? 100 : progress.percentage}
               size={96}
@@ -162,24 +157,24 @@ export const HeaderBanner: React.FC = () => {
             />
 
             <div className="flex flex-col justify-center">
-              <span className="text-xs uppercase tracking-wider text-[#FFFFFA]/70 font-semibold">
+              <span className="text-xs uppercase tracking-wider text-[#F9E6A8]/70 font-semibold">
                 Daily Completion
               </span>
               <div className="flex items-baseline gap-1.5 mt-0.5">
-                <span className="text-2xl sm:text-3xl font-bold text-[#FFFFFA] tabular-nums">
+                <span className="text-2xl sm:text-3xl font-bold text-[#F9E6A8] tabular-nums">
                   {selectedDateLog.paused ? 'Safe' : `${progress.checkedCount}/${progress.totalApplicable}`}
                 </span>
-                <span className="text-xs text-[#78CDD7] font-medium">Tasks</span>
+                <span className="text-xs text-[#F2A900] font-medium">Tasks</span>
               </div>
 
-              <div className="mt-2 text-xs text-[#FFFFFA]/70 font-medium">
+              <div className="mt-2 text-xs text-[#F9E6A8]/70 font-medium">
                 {selectedDateLog.paused ? (
-                  <span className="text-[#78CDD7]">Protected status enabled</span>
+                  <span className="text-[#F2A900]">Protected status enabled</span>
                 ) : remainingTasks === 0 ? (
-                  <span className="text-[#78CDD7] font-semibold">All targets secured!</span>
+                  <span className="text-[#F2A900] font-semibold">All targets secured!</span>
                 ) : (
                   <span>
-                    <strong className="text-[#FFFFFA]">{remainingTasks}</strong> targets remaining
+                    <strong className="text-[#F9E6A8]">{remainingTasks}</strong> targets remaining
                   </span>
                 )}
               </div>
@@ -190,16 +185,16 @@ export const HeaderBanner: React.FC = () => {
 
       {/* Evening Warning (Coach Nudge) */}
       {showEveningWarning && (
-        <div className="bg-[#113E43] border border-[#78CDD7]/50 rounded-xl p-3.5 flex items-center justify-between gap-3 text-sm text-[#FFFFFA] shadow-md animate-fadeIn">
+        <div className="bg-[#331C00] border border-[#F2A900]/60 rounded-xl p-3.5 flex items-center justify-between gap-3 text-sm text-[#F9E6A8] shadow-md">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-[#082226] border border-[#78CDD7]/60 flex items-center justify-center shrink-0">
-              <AlertTriangle className="w-4 h-4 text-[#78CDD7]" />
+            <div className="w-8 h-8 rounded-lg bg-[#1B0F03] border border-[#F2A900]/70 flex items-center justify-center shrink-0">
+              <AlertTriangle className="w-4 h-4 text-[#F2A900]" />
             </div>
             <div>
-              <p className="font-semibold text-xs md:text-sm text-[#FFFFFA]">
-                Evening Retrospective Alert: <span className="text-[#78CDD7] font-normal">{remainingTasks} tasks left to lock in today’s streak.</span>
+              <p className="font-semibold text-xs md:text-sm text-[#F9E6A8]">
+                Evening Retrospective Alert: <span className="text-[#F2A900] font-normal">{remainingTasks} tasks left to lock in today’s streak.</span>
               </p>
-              <p className="text-[11px] text-[#FFFFFA]/70 hidden sm:block">
+              <p className="text-[11px] text-[#F9E6A8]/70 hidden sm:block">
                 Night shutdown commences soon. Execute your priority physical or reading blocks.
               </p>
             </div>
@@ -209,7 +204,7 @@ export const HeaderBanner: React.FC = () => {
               const el = document.getElementById('daily-tasks-grid');
               el?.scrollIntoView({ behavior: 'smooth' });
             }}
-            className="px-3 py-1.5 bg-[#44A1A0] hover:bg-[#78CDD7] text-[#082226] text-xs font-bold rounded-lg transition-colors whitespace-nowrap shrink-0"
+            className="px-3 py-1.5 bg-[#CC6F00] hover:bg-[#F2A900] text-[#1B0F03] text-xs font-bold rounded-lg transition-colors whitespace-nowrap shrink-0"
           >
             Review Tasks
           </button>

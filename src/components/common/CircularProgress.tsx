@@ -31,7 +31,7 @@ export const CircularProgress: React.FC<CircularProgressProps> = ({
             cx={size / 2}
             cy={size / 2}
             r={radius}
-            stroke="#103b41"
+            stroke="#331C00"
             strokeWidth={strokeWidth}
             fill="transparent"
           />
@@ -40,7 +40,7 @@ export const CircularProgress: React.FC<CircularProgressProps> = ({
             cx={size / 2}
             cy={size / 2}
             r={radius}
-            stroke="#78CDD7"
+            stroke="#F2A900"
             strokeWidth={strokeWidth}
             strokeDasharray={circumference}
             strokeDashoffset={strokeDashoffset}
@@ -48,27 +48,27 @@ export const CircularProgress: React.FC<CircularProgressProps> = ({
             fill="transparent"
             className="transition-all duration-500 ease-out"
             style={{
-              filter: clamped > 0 ? 'drop-shadow(0 0 4px rgba(120, 205, 215, 0.45))' : 'none',
+              filter: clamped > 0 ? 'drop-shadow(0 0 5px rgba(242, 169, 0, 0.55))' : 'none',
             }}
           />
         </svg>
         {showText && (
           <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
             <span
-              className="font-bold tabular-nums text-[#FFFFFA]"
+              className="font-bold tabular-nums text-[#F9E6A8]"
               style={{ fontSize: size <= 64 ? '0.85rem' : size <= 90 ? '1.15rem' : '1.75rem' }}
             >
               {clamped}%
             </span>
             {sublabel && (
-              <span className="text-[10px] text-[#78CDD7] tracking-wider uppercase font-semibold">
+              <span className="text-[10px] text-[#F2A900] tracking-wider uppercase font-semibold">
                 {sublabel}
               </span>
             )}
           </div>
         )}
       </div>
-      {label && <span className="mt-1 text-xs text-[#FFFFFA]/80 font-medium">{label}</span>}
+      {label && <span className="mt-1 text-xs text-[#F9E6A8]/80 font-medium">{label}</span>}
     </div>
   );
 };

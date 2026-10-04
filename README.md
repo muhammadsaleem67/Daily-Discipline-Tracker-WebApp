@@ -18,15 +18,15 @@ Daily Discipline is an uncompromising personal performance dashboard. Unlike sof
 
 ## 🎨 Official Color Palette
 
-The interface strictly adheres to the curated five-shade teal design language:
+The interface is styled using the warm golden-amber and roasted-umber Color Hunt palette (`#F9E6A8`, `#F2A900`, `#CC6F00`, `#4D2A00`):
 
 | Hex Code | Name | Architectural Role |
 | :--- | :--- | :--- |
-| **`#0D5C63`** | Deepest Teal | Dominant background canvas, module cards, container surfaces |
-| **`#247B7B`** | Secondary Teal | Structural panels, card borders, secondary buttons, divider lines |
-| **`#44A1A0`** | Primary Accent | Action triggers, active navigation items, interactive filter tabs |
-| **`#78CDD7`** | Bright Highlight Accent | Progress ring fills, glowing streak flame, success badges, chart caps |
-| **`#FFFFFA`** | Off-White | High-contrast display headlines, tabular metrics, legible body prose |
+| **`#4D2A00`** | Roasted Umber | Deep card surfaces, module panels, modal backgrounds, and primary structures |
+| **`#CC6F00`** | Burnt Bronze / Ochre | Primary action triggers, active navigation items, interactive filter tabs |
+| **`#F2A900`** | Golden Amber | Glowing streak flame, progress ring fills, active chart caps, success states |
+| **`#F9E6A8`** | Light Warm Cream | High-contrast display headlines, tabular metrics, legible body prose |
+| **`#1B0F03`** | Deep Espresso Shadow | Deep background canvas, inset card wells, dark input fields |
 
 ---
 

@@ -55,10 +55,10 @@ export const TodayView: React.FC = () => {
       {/* 3. Routine Phases Module Cards (The Core Daily Checklist) */}
       <div id="daily-tasks-grid" className="flex flex-col gap-3">
         <div className="flex items-center justify-between">
-          <h2 className="text-lg font-bold text-[#FFFFFA] tracking-tight uppercase">
+          <h2 className="text-lg font-bold text-[#F9E6A8] tracking-tight uppercase">
             Daily Execution Modules
           </h2>
-          <span className="text-xs text-[#78CDD7] font-medium">
+          <span className="text-xs text-[#F2A900] font-medium">
             {applicableTasks.length} Scheduled Blocks
           </span>
         </div>

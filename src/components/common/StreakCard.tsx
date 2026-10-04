@@ -6,13 +6,11 @@ import { getTodayDateStr } from '../../utils/date';
 export const StreakCard: React.FC = () => {
   const { streak, dailyLogs, effectiveTasks } = useData();
 
-  // Compute last 7 days status for the mini trail
   const today = new Date();
   const weekDays = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
   const todayStr = getTodayDateStr();
 
-  // Find Monday of current week
-  const dayOfWeek = today.getDay(); // 0 is Sunday
+  const dayOfWeek = today.getDay();
   const distanceToMonday = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
   const mondayDate = new Date(today);
   mondayDate.setDate(today.getDate() + distanceToMonday);
@@ -53,18 +51,18 @@ export const StreakCard: React.FC = () => {
   });
 
   return (
-    <div className="bg-[#0D5C63]/90 border border-[#247B7B]/60 rounded-xl p-5 relative overflow-hidden backdrop-blur-sm shadow-lg flex flex-col justify-between">
+    <div className="bg-[#4D2A00]/85 border border-[#6E3B00] rounded-xl p-5 relative overflow-hidden backdrop-blur-sm shadow-xl flex flex-col justify-between">
       {/* Background glow behind the flame */}
-      <div className="absolute -top-10 -right-10 w-36 h-36 bg-[#78CDD7]/15 rounded-full blur-2xl pointer-events-none" />
+      <div className="absolute -top-10 -right-10 w-36 h-36 bg-[#F2A900]/15 rounded-full blur-2xl pointer-events-none" />
 
       {/* Header */}
       <div className="flex items-center justify-between">
-        <span className="text-xs uppercase tracking-wider text-[#FFFFFA]/70 font-semibold">
+        <span className="text-xs uppercase tracking-wider text-[#F9E6A8]/70 font-semibold">
           Discipline Streak
         </span>
-        <div className="flex items-center gap-1.5 text-xs text-[#FFFFFA]/80 bg-[#082226]/60 px-2.5 py-1 rounded border border-[#247B7B]/40">
-          <Trophy className="w-3.5 h-3.5 text-[#78CDD7]" />
-          <span>Longest: <strong className="text-[#FFFFFA] tabular-nums">{streak.bestStreak} Days</strong></span>
+        <div className="flex items-center gap-1.5 text-xs text-[#F9E6A8]/85 bg-[#1B0F03]/70 px-2.5 py-1 rounded border border-[#6E3B00]/60">
+          <Trophy className="w-3.5 h-3.5 text-[#F2A900]" />
+          <span>Longest: <strong className="text-[#F9E6A8] tabular-nums">{streak.bestStreak} Days</strong></span>
         </div>
       </div>
 
@@ -72,14 +70,14 @@ export const StreakCard: React.FC = () => {
       <div className="my-4 flex items-center justify-between">
         <div>
           <div className="flex items-baseline gap-2">
-            <span className="text-4xl md:text-5xl font-extrabold text-[#FFFFFA] tracking-tight tabular-nums">
+            <span className="text-4xl md:text-5xl font-extrabold text-[#F9E6A8] tracking-tight tabular-nums">
               {streak.currentStreak}
             </span>
-            <span className="text-xl md:text-2xl font-bold text-[#78CDD7] tracking-wider uppercase">
+            <span className="text-xl md:text-2xl font-bold text-[#F2A900] tracking-wider uppercase">
               Days
             </span>
           </div>
-          <p className="text-xs text-[#FFFFFA]/75 mt-1 font-medium">
+          <p className="text-xs text-[#F9E6A8]/75 mt-1 font-medium">
             {streak.currentStreak >= 7
               ? 'Unshakable momentum. Execute today’s standard.'
               : 'Every repetition compounds. Protect the daily chain.'}
@@ -87,42 +85,42 @@ export const StreakCard: React.FC = () => {
         </div>
 
         {/* Big Flame Icon */}
-        <div className="w-16 h-16 rounded-2xl bg-[#082226]/80 border border-[#44A1A0]/40 flex items-center justify-center shadow-inner group">
+        <div className="w-16 h-16 rounded-2xl bg-[#1B0F03]/90 border border-[#CC6F00]/50 flex items-center justify-center shadow-inner group">
           <Flame
-            className="w-10 h-10 text-[#78CDD7] animate-pulse"
-            style={{ filter: 'drop-shadow(0 0 10px rgba(120, 205, 215, 0.6))' }}
+            className="w-10 h-10 text-[#F2A900] animate-pulse"
+            style={{ filter: 'drop-shadow(0 0 12px rgba(242, 169, 0, 0.7))' }}
           />
         </div>
       </div>
 
       {/* 7-day completion dots trail */}
-      <div className="pt-3 border-t border-[#247B7B]/40">
+      <div className="pt-3 border-t border-[#6E3B00]/60">
         <div className="flex items-center justify-between">
-          <span className="text-[11px] text-[#FFFFFA]/60 font-medium">Current Week</span>
+          <span className="text-[11px] text-[#F9E6A8]/60 font-medium">Current Week</span>
           <div className="flex items-center gap-2">
             {trail.map((item, idx) => (
               <div key={idx} className="flex flex-col items-center gap-1">
-                <span className={`text-[10px] ${item.isToday ? 'text-[#78CDD7] font-bold' : 'text-[#FFFFFA]/60'}`}>
+                <span className={`text-[10px] ${item.isToday ? 'text-[#F2A900] font-bold' : 'text-[#F9E6A8]/60'}`}>
                   {item.dayLetter}
                 </span>
                 <div
                   className={`w-5 h-5 rounded-full flex items-center justify-center transition-all ${
                     item.status === 'completed'
-                      ? 'bg-[#78CDD7] text-[#082226] shadow-sm'
+                      ? 'bg-[#F2A900] text-[#1B0F03] shadow-sm font-bold'
                       : item.status === 'paused'
-                      ? 'bg-[#44A1A0] text-[#FFFFFA]'
+                      ? 'bg-[#CC6F00] text-[#F9E6A8]'
                       : item.isToday
-                      ? 'border border-[#78CDD7] bg-[#082226]'
+                      ? 'border border-[#F2A900] bg-[#1B0F03]'
                       : item.status === 'pending'
-                      ? 'bg-[#103b41] border border-[#247B7B]/40'
-                      : 'bg-[#103b41]/60 text-[#FFFFFA]/30'
+                      ? 'bg-[#331C00] border border-[#6E3B00]/40'
+                      : 'bg-[#261502] text-[#F9E6A8]/30'
                   }`}
                   title={`${item.dateKey}: ${item.status}`}
                 >
                   {item.status === 'completed' && <CheckCircle2 className="w-3.5 h-3.5 stroke-[2.5]" />}
                   {item.status === 'paused' && <span className="text-[9px] font-bold">P</span>}
                   {item.isToday && item.status !== 'completed' && (
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#78CDD7] animate-ping" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#F2A900] animate-ping" />
                   )}
                 </div>
               </div>

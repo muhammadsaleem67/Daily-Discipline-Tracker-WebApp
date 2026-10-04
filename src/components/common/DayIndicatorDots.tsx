@@ -15,7 +15,6 @@ export const DayIndicatorDots: React.FC<DayIndicatorDotsProps> = ({
   const weekDays = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
   const todayStr = getTodayDateStr();
 
-  // Find Monday of current week
   const dayOfWeek = today.getDay();
   const distanceToMonday = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
   const mondayDate = new Date(today);
@@ -63,9 +62,9 @@ export const DayIndicatorDots: React.FC<DayIndicatorDotsProps> = ({
 
   return (
     <div className="flex flex-col gap-1.5 w-full">
-      <div className="flex items-center justify-between text-[11px] text-[#FFFFFA]/70">
+      <div className="flex items-center justify-between text-[11px] text-[#F9E6A8]/70">
         <span>Weekly Cadence</span>
-        <span className="font-semibold text-[#78CDD7] tabular-nums">
+        <span className="font-semibold text-[#F2A900] tabular-nums">
           {completedDaysCount}/7 Days
         </span>
       </div>
@@ -76,19 +75,19 @@ export const DayIndicatorDots: React.FC<DayIndicatorDotsProps> = ({
             <div
               className={`w-full h-3 rounded-sm transition-all ${
                 d.isDone
-                  ? 'bg-[#78CDD7] shadow-[0_0_6px_rgba(120,205,215,0.4)]'
+                  ? 'bg-[#F2A900] shadow-[0_0_6px_rgba(242,169,0,0.5)]'
                   : d.isPaused
-                  ? 'bg-[#44A1A0]'
+                  ? 'bg-[#CC6F00]'
                   : d.isToday
-                  ? 'bg-[#103b41] border border-[#78CDD7]'
+                  ? 'bg-[#331C00] border border-[#F2A900]'
                   : d.isPast
-                  ? 'bg-[#103b41]'
-                  : 'bg-[#082226] border border-[#247B7B]/30'
+                  ? 'bg-[#331C00]'
+                  : 'bg-[#1B0F03] border border-[#6E3B00]/40'
               }`}
             />
             <span
               className={`text-[10px] ${
-                d.isToday ? 'text-[#78CDD7] font-bold' : 'text-[#FFFFFA]/50'
+                d.isToday ? 'text-[#F2A900] font-bold' : 'text-[#F9E6A8]/50'
               }`}
             >
               {d.letter}

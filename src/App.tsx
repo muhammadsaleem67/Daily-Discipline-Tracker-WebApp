@@ -17,7 +17,7 @@ const MainLayout: React.FC = () => {
   const { milestoneToCelebrate, clearCelebration } = useData();
 
   return (
-    <div className="flex min-h-screen bg-[#082226] text-[#FFFFFA]">
+    <div className="flex min-h-screen bg-[#1B0F03] text-[#F9E6A8]">
       {/* Desktop / Tablet Sidebar */}
       <Sidebar
         currentTab={currentTab}

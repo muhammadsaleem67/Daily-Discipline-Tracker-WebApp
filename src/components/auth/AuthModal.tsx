@@ -51,38 +51,38 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-[#082226]/85 backdrop-blur-md flex items-center justify-center p-4">
-      <div className="bg-[#0D5C63] border border-[#247B7B] rounded-2xl w-full max-w-md p-6 sm:p-7 shadow-2xl relative">
+    <div className="fixed inset-0 z-50 bg-[#1B0F03]/90 backdrop-blur-md flex items-center justify-center p-4">
+      <div className="bg-[#4D2A00] border border-[#6E3B00] rounded-2xl w-full max-w-md p-6 sm:p-7 shadow-2xl relative">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-1.5 rounded-lg text-[#FFFFFA]/60 hover:text-[#FFFFFA] hover:bg-[#103b41] transition-colors"
+          className="absolute top-4 right-4 p-1.5 rounded-lg text-[#F9E6A8]/60 hover:text-[#F9E6A8] hover:bg-[#331C00] transition-colors"
         >
           <X className="w-5 h-5" />
         </button>
 
         {/* Modal Brand Header */}
         <div className="flex items-center gap-3 mb-5">
-          <div className="w-10 h-10 rounded-xl bg-[#082226] border border-[#44A1A0] flex items-center justify-center shadow-inner">
-            <Shield className="w-5 h-5 text-[#78CDD7]" />
+          <div className="w-10 h-10 rounded-xl bg-[#1B0F03] border border-[#CC6F00] flex items-center justify-center shadow-inner">
+            <Shield className="w-5 h-5 text-[#F2A900]" />
           </div>
           <div>
-            <h2 className="text-xl font-extrabold text-[#FFFFFA] tracking-tight">
+            <h2 className="text-xl font-extrabold text-[#F9E6A8] tracking-tight">
               Daily Discipline
             </h2>
-            <span className="text-xs text-[#FFFFFA]/70">
+            <span className="text-xs text-[#F9E6A8]/70">
               Private, zero-compromise performance tracking
             </span>
           </div>
         </div>
 
         {/* Tab switch */}
-        <div className="flex bg-[#082226] p-1 rounded-xl mb-5 border border-[#247B7B]/50">
+        <div className="flex bg-[#1B0F03] p-1 rounded-xl mb-5 border border-[#6E3B00]/60">
           <button
             onClick={() => setMode('signin')}
             className={`flex-1 py-1.5 text-xs font-bold rounded-lg transition-colors ${
               mode === 'signin'
-                ? 'bg-[#44A1A0] text-[#082226]'
-                : 'text-[#FFFFFA]/60 hover:text-[#FFFFFA]'
+                ? 'bg-[#CC6F00] text-[#1B0F03]'
+                : 'text-[#F9E6A8]/60 hover:text-[#F9E6A8]'
             }`}
           >
             Sign In
@@ -91,8 +91,8 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
             onClick={() => setMode('signup')}
             className={`flex-1 py-1.5 text-xs font-bold rounded-lg transition-colors ${
               mode === 'signup'
-                ? 'bg-[#44A1A0] text-[#082226]'
-                : 'text-[#FFFFFA]/60 hover:text-[#FFFFFA]'
+                ? 'bg-[#CC6F00] text-[#1B0F03]'
+                : 'text-[#F9E6A8]/60 hover:text-[#F9E6A8]'
             }`}
           >
             Create Account
@@ -109,60 +109,60 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
         <form onSubmit={handleSubmit} className="flex flex-col gap-3.5">
           {mode === 'signup' && (
             <div>
-              <label className="text-[11px] font-semibold text-[#FFFFFA]/80 uppercase tracking-wider block mb-1">
+              <label className="text-[11px] font-semibold text-[#F9E6A8]/80 uppercase tracking-wider block mb-1">
                 Full Name
               </label>
               <div className="relative">
-                <User className="w-4 h-4 text-[#FFFFFA]/40 absolute left-3 top-3" />
+                <User className="w-4 h-4 text-[#F9E6A8]/40 absolute left-3 top-3" />
                 <input
                   type="text"
                   required
                   placeholder="e.g. Alex Rivera"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full bg-[#082226] border border-[#247B7B] rounded-lg pl-9 pr-3 py-2 text-sm text-[#FFFFFA] focus:outline-none focus:border-[#78CDD7]"
+                  className="w-full bg-[#1B0F03] border border-[#6E3B00] rounded-lg pl-9 pr-3 py-2 text-sm text-[#F9E6A8] focus:outline-none focus:border-[#F2A900]"
                 />
               </div>
             </div>
           )}
 
           <div>
-            <label className="text-[11px] font-semibold text-[#FFFFFA]/80 uppercase tracking-wider block mb-1">
+            <label className="text-[11px] font-semibold text-[#F9E6A8]/80 uppercase tracking-wider block mb-1">
               Email Address
             </label>
             <div className="relative">
-              <Mail className="w-4 h-4 text-[#FFFFFA]/40 absolute left-3 top-3" />
+              <Mail className="w-4 h-4 text-[#F9E6A8]/40 absolute left-3 top-3" />
               <input
                 type="email"
                 required
                 placeholder="name@discipline.io"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-[#082226] border border-[#247B7B] rounded-lg pl-9 pr-3 py-2 text-sm text-[#FFFFFA] focus:outline-none focus:border-[#78CDD7]"
+                className="w-full bg-[#1B0F03] border border-[#6E3B00] rounded-lg pl-9 pr-3 py-2 text-sm text-[#F9E6A8] focus:outline-none focus:border-[#F2A900]"
               />
             </div>
           </div>
 
           <div>
-            <label className="text-[11px] font-semibold text-[#FFFFFA]/80 uppercase tracking-wider block mb-1">
+            <label className="text-[11px] font-semibold text-[#F9E6A8]/80 uppercase tracking-wider block mb-1">
               Password
             </label>
             <div className="relative">
-              <Lock className="w-4 h-4 text-[#FFFFFA]/40 absolute left-3 top-3" />
+              <Lock className="w-4 h-4 text-[#F9E6A8]/40 absolute left-3 top-3" />
               <input
                 type="password"
                 required
                 placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-[#082226] border border-[#247B7B] rounded-lg pl-9 pr-3 py-2 text-sm text-[#FFFFFA] focus:outline-none focus:border-[#78CDD7]"
+                className="w-full bg-[#1B0F03] border border-[#6E3B00] rounded-lg pl-9 pr-3 py-2 text-sm text-[#F9E6A8] focus:outline-none focus:border-[#F2A900]"
               />
             </div>
           </div>
 
           <button
             type="submit"
-            className="mt-2 py-2.5 bg-[#44A1A0] hover:bg-[#78CDD7] text-[#082226] font-bold text-xs uppercase tracking-wider rounded-lg transition-all shadow-md flex items-center justify-center gap-1.5"
+            className="mt-2 py-2.5 bg-[#CC6F00] hover:bg-[#F2A900] text-[#1B0F03] font-bold text-xs uppercase tracking-wider rounded-lg transition-all shadow-md flex items-center justify-center gap-1.5"
           >
             <LogIn className="w-4 h-4" />
             <span>{mode === 'signin' ? 'Sign In to Dashboard' : 'Initialize Account & Seed Routine'}</span>
@@ -172,17 +172,17 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
         {/* Divider */}
         <div className="relative my-5">
           <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-[#247B7B]/50" />
+            <div className="w-full border-t border-[#6E3B00]/60" />
           </div>
-          <div className="relative flex justify-center text-[10px] uppercase font-bold text-[#FFFFFA]/50">
-            <span className="bg-[#0D5C63] px-2">Or continue with</span>
+          <div className="relative flex justify-center text-[10px] uppercase font-bold text-[#F9E6A8]/50">
+            <span className="bg-[#4D2A00] px-2">Or continue with</span>
           </div>
         </div>
 
         {/* Google OAuth Button */}
         <button
           onClick={handleGoogle}
-          className="w-full py-2.5 bg-[#082226] hover:bg-[#103b41] border border-[#247B7B] text-[#FFFFFA] rounded-lg text-xs font-semibold flex items-center justify-center gap-2.5 transition-colors mb-3"
+          className="w-full py-2.5 bg-[#1B0F03] hover:bg-[#331C00] border border-[#6E3B00] text-[#F9E6A8] rounded-lg text-xs font-semibold flex items-center justify-center gap-2.5 transition-colors mb-3"
         >
           <svg className="w-4 h-4" viewBox="0 0 24 24">
             <path
@@ -206,23 +206,23 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
         </button>
 
         {/* Quick Demo Personas */}
-        <div className="pt-3 border-t border-[#247B7B]/40 flex flex-col gap-1.5">
-          <span className="text-[10px] text-[#FFFFFA]/60 font-semibold uppercase tracking-wider block text-center">
+        <div className="pt-3 border-t border-[#6E3B00]/60 flex flex-col gap-1.5">
+          <span className="text-[10px] text-[#F9E6A8]/60 font-semibold uppercase tracking-wider block text-center">
             Instant Demo Access
           </span>
           <div className="grid grid-cols-2 gap-2">
             <button
               onClick={() => handleDemo('founder')}
-              className="px-2.5 py-1.5 bg-[#082226]/80 hover:bg-[#103b41] border border-[#247B7B]/60 rounded-lg text-[11px] text-[#FFFFFA] transition-colors flex items-center justify-center gap-1.5"
+              className="px-2.5 py-1.5 bg-[#1B0F03]/90 hover:bg-[#331C00] border border-[#6E3B00]/70 rounded-lg text-[11px] text-[#F9E6A8] transition-colors flex items-center justify-center gap-1.5"
             >
-              <Sparkles className="w-3 h-3 text-[#78CDD7]" />
+              <Sparkles className="w-3 h-3 text-[#F2A900]" />
               <span>Alex Rivera</span>
             </button>
             <button
               onClick={() => handleDemo('student')}
-              className="px-2.5 py-1.5 bg-[#082226]/80 hover:bg-[#103b41] border border-[#247B7B]/60 rounded-lg text-[11px] text-[#FFFFFA] transition-colors flex items-center justify-center gap-1.5"
+              className="px-2.5 py-1.5 bg-[#1B0F03]/90 hover:bg-[#331C00] border border-[#6E3B00]/70 rounded-lg text-[11px] text-[#F9E6A8] transition-colors flex items-center justify-center gap-1.5"
             >
-              <Sparkles className="w-3 h-3 text-[#78CDD7]" />
+              <Sparkles className="w-3 h-3 text-[#F2A900]" />
               <span>Tariq Mansour</span>
             </button>
           </div>

@@ -18,7 +18,7 @@ export const ConsistencyHeatmap: React.FC<ConsistencyHeatmapProps> = ({
   interactive = true,
 }) => {
   const { dailyLogs, effectiveTasks, selectedDateStr, setSelectedDateStr } = useData();
-  const [offsetWeeks, setOffsetWeeks] = useState(0); // 0 means current weeks up to today
+  const [offsetWeeks, setOffsetWeeks] = useState(0);
   const [inspectedDay, setInspectedDay] = useState<{
     dateStr: string;
     percentage: number;
@@ -30,15 +30,12 @@ export const ConsistencyHeatmap: React.FC<ConsistencyHeatmapProps> = ({
 
   const todayStr = getTodayDateStr();
 
-  // Generate grid matrix: 7 rows (Mon to Sun) x `weeksToShow` columns
   const { grid, monthLabels, thisMonthPct, bestMonthPct } = useMemo(() => {
     const today = new Date();
-    // Shift by offsetWeeks
     const endDate = new Date(today);
     endDate.setDate(endDate.getDate() - offsetWeeks * 7);
 
-    // End on Sunday of that week
-    const dayOfWeek = endDate.getDay(); // 0 is Sun
+    const dayOfWeek = endDate.getDay();
     const daysToSunday = dayOfWeek === 0 ? 0 : 7 - dayOfWeek;
     endDate.setDate(endDate.getDate() + daysToSunday);
 
@@ -46,11 +43,10 @@ export const ConsistencyHeatmap: React.FC<ConsistencyHeatmapProps> = ({
     const startDate = new Date(endDate);
     startDate.setDate(endDate.getDate() - totalDays + 1);
 
-    // Build array of dates
     const days: {
       dateStr: string;
       dateObj: Date;
-      dayOfWeek: number; // 0 Mon, 6 Sun
+      dayOfWeek: number;
       percentage: number;
       checked: number;
       total: number;
@@ -72,7 +68,7 @@ export const ConsistencyHeatmap: React.FC<ConsistencyHeatmapProps> = ({
       const dateKey = `${y}-${m}-${day}`;
 
       const jsDay = d.getDay();
-      const normalizedDay = jsDay === 0 ? 6 : jsDay - 1; // 0=Mon, 6=Sun
+      const normalizedDay = jsDay === 0 ? 6 : jsDay - 1;
 
       const weekCol = Math.floor(i / 7);
       if (normalizedDay === 0 && d.getMonth() !== lastMonth) {
@@ -100,13 +96,11 @@ export const ConsistencyHeatmap: React.FC<ConsistencyHeatmapProps> = ({
       });
     }
 
-    // Organize into 7 rows
     const rows: typeof days[] = Array.from({ length: 7 }, () => []);
     days.forEach((dayItem) => {
       rows[dayItem.dayOfWeek].push(dayItem);
     });
 
-    // Compute this month & best month consistency
     const curYearMonth = todayStr.substring(0, 7);
     let curMonthHits = 0;
     let curMonthTotal = 0;
@@ -153,21 +147,21 @@ export const ConsistencyHeatmap: React.FC<ConsistencyHeatmapProps> = ({
     dateStr: string;
   }) => {
     if (day.paused) {
-      return 'bg-[#78CDD7] shadow-[0_0_6px_rgba(120,205,215,0.5)]';
+      return 'bg-[#F2A900] shadow-[0_0_6px_rgba(242,169,0,0.5)]';
     }
     if (!day.hasLog || day.percentage === 0) {
-      return 'bg-[#082226] border border-[#103b41] hover:border-[#44A1A0]';
+      return 'bg-[#1B0F03] border border-[#331C00] hover:border-[#CC6F00]';
     }
     if (day.percentage < 40) {
-      return 'bg-[#0D5C63] border border-[#247B7B]/60 hover:border-[#78CDD7]';
+      return 'bg-[#4D2A00] border border-[#6E3B00] hover:border-[#F2A900]';
     }
     if (day.percentage < 70) {
-      return 'bg-[#247B7B] shadow-[0_0_3px_rgba(36,123,123,0.4)] hover:border-[#78CDD7]';
+      return 'bg-[#8C4B00] shadow-[0_0_3px_rgba(140,75,0,0.4)] hover:border-[#F2A900]';
     }
     if (day.percentage < 90) {
-      return 'bg-[#44A1A0] shadow-[0_0_4px_rgba(68,161,160,0.5)] hover:border-[#FFFFFA]';
+      return 'bg-[#CC6F00] shadow-[0_0_4px_rgba(204,111,0,0.5)] hover:border-[#F9E6A8]';
     }
-    return 'bg-[#78CDD7] shadow-[0_0_6px_rgba(120,205,215,0.7)] hover:border-[#FFFFFA]';
+    return 'bg-[#F2A900] shadow-[0_0_6px_rgba(242,169,0,0.7)] hover:border-[#F9E6A8]';
   };
 
   const dayRowLabels = ['Mon', '', 'Wed', '', 'Fri', '', 'Sun'];
@@ -186,18 +180,18 @@ export const ConsistencyHeatmap: React.FC<ConsistencyHeatmapProps> = ({
   };
 
   return (
-    <div className="bg-[#0D5C63]/90 border border-[#247B7B]/70 rounded-xl p-5 backdrop-blur-sm shadow-lg flex flex-col gap-4">
+    <div className="bg-[#4D2A00]/85 border border-[#6E3B00] rounded-xl p-5 backdrop-blur-sm shadow-lg flex flex-col gap-4">
       {/* Header and stats */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
         <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-[#082226]/80 border border-[#247B7B]/60 flex items-center justify-center">
-            <Calendar className="w-4 h-4 text-[#78CDD7]" />
+          <div className="w-8 h-8 rounded-lg bg-[#1B0F03]/90 border border-[#6E3B00]/70 flex items-center justify-center">
+            <Calendar className="w-4 h-4 text-[#F2A900]" />
           </div>
           <div>
-            <h3 className="font-bold text-base text-[#FFFFFA] tracking-wide">
+            <h3 className="font-bold text-base text-[#F9E6A8] tracking-wide">
               Discipline Heatmap
             </h3>
-            <span className="text-[11px] text-[#FFFFFA]/60 font-medium">
+            <span className="text-[11px] text-[#F9E6A8]/60 font-medium">
               Daily execution frequency across calendar weeks
             </span>
           </div>
@@ -206,30 +200,30 @@ export const ConsistencyHeatmap: React.FC<ConsistencyHeatmapProps> = ({
         {/* Consistency Stats (This month & Best month) */}
         <div className="flex items-center gap-4">
           <div className="flex flex-col items-end">
-            <span className="text-[10px] text-[#FFFFFA]/60 uppercase tracking-wider font-semibold">
+            <span className="text-[10px] text-[#F9E6A8]/60 uppercase tracking-wider font-semibold">
               This Month
             </span>
-            <span className="text-xl font-extrabold text-[#78CDD7] tabular-nums">
+            <span className="text-xl font-extrabold text-[#F2A900] tabular-nums">
               {thisMonthPct}%
             </span>
           </div>
 
-          <div className="h-7 w-px bg-[#247B7B]/60" />
+          <div className="h-7 w-px bg-[#6E3B00]/60" />
 
           <div className="flex flex-col items-end">
-            <span className="text-[10px] text-[#FFFFFA]/60 uppercase tracking-wider font-semibold">
+            <span className="text-[10px] text-[#F9E6A8]/60 uppercase tracking-wider font-semibold">
               Best Month
             </span>
-            <span className="text-xl font-extrabold text-[#FFFFFA] tabular-nums">
+            <span className="text-xl font-extrabold text-[#F9E6A8] tabular-nums">
               {bestMonthPct}%
             </span>
           </div>
 
           {/* Nav buttons for weeks */}
-          <div className="flex items-center gap-1 bg-[#082226]/80 border border-[#247B7B]/60 rounded-lg p-0.5 ml-2">
+          <div className="flex items-center gap-1 bg-[#1B0F03]/90 border border-[#6E3B00]/70 rounded-lg p-0.5 ml-2">
             <button
               onClick={() => setOffsetWeeks((w) => w + 4)}
-              className="p-1 rounded text-[#FFFFFA]/70 hover:text-[#78CDD7] hover:bg-[#103b41] transition-colors"
+              className="p-1 rounded text-[#F9E6A8]/70 hover:text-[#F2A900] hover:bg-[#331C00] transition-colors"
               title="Earlier Weeks"
             >
               <ChevronLeft className="w-4 h-4" />
@@ -239,8 +233,8 @@ export const ConsistencyHeatmap: React.FC<ConsistencyHeatmapProps> = ({
               disabled={offsetWeeks === 0}
               className={`p-1 rounded transition-colors ${
                 offsetWeeks === 0
-                  ? 'text-[#FFFFFA]/20 cursor-not-allowed'
-                  : 'text-[#FFFFFA]/70 hover:text-[#78CDD7] hover:bg-[#103b41]'
+                  ? 'text-[#F9E6A8]/20 cursor-not-allowed'
+                  : 'text-[#F9E6A8]/70 hover:text-[#F2A900] hover:bg-[#331C00]'
               }`}
               title="Later Weeks"
             >
@@ -254,7 +248,7 @@ export const ConsistencyHeatmap: React.FC<ConsistencyHeatmapProps> = ({
       <div className="overflow-x-auto pb-2 -mx-2 px-2">
         <div className="min-w-[620px]">
           {/* Month labels */}
-          <div className="grid grid-cols-[28px_repeat(20,minmax(0,1fr))] gap-1.5 mb-1.5 text-[11px] text-[#FFFFFA]/60 font-medium pl-1">
+          <div className="grid grid-cols-[28px_repeat(20,minmax(0,1fr))] gap-1.5 mb-1.5 text-[11px] text-[#F9E6A8]/60 font-medium pl-1">
             <div />
             {Array.from({ length: weeksToShow }).map((_, colIdx) => {
               const labelObj = monthLabels.find((m) => m.index === colIdx);
@@ -274,7 +268,7 @@ export const ConsistencyHeatmap: React.FC<ConsistencyHeatmapProps> = ({
                 className="grid grid-cols-[28px_repeat(20,minmax(0,1fr))] items-center gap-1.5"
               >
                 {/* Day of week letter */}
-                <span className="text-[10px] text-[#FFFFFA]/50 font-mono select-none">
+                <span className="text-[10px] text-[#F9E6A8]/50 font-mono select-none">
                   {dayRowLabels[rowIdx]}
                 </span>
 
@@ -291,9 +285,9 @@ export const ConsistencyHeatmap: React.FC<ConsistencyHeatmapProps> = ({
                         dayItem
                       )} ${
                         isSelected
-                          ? 'ring-2 ring-[#FFFFFA] ring-offset-1 ring-offset-[#082226]'
+                          ? 'ring-2 ring-[#F9E6A8] ring-offset-1 ring-offset-[#1B0F03]'
                           : ''
-                      } ${isToday ? 'border-b-2 border-b-[#FFFFFA]' : ''}`}
+                      } ${isToday ? 'border-b-2 border-b-[#F2A900]' : ''}`}
                       title={`${dayItem.dateStr}: ${
                         dayItem.paused
                           ? 'Paused (Streak Safe)'
@@ -309,24 +303,22 @@ export const ConsistencyHeatmap: React.FC<ConsistencyHeatmapProps> = ({
       </div>
 
       {/* Legend & Details Inspector Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-[#247B7B]/40 text-xs">
-        {/* Teal Intensity scale legend */}
-        <div className="flex items-center gap-2 text-[#FFFFFA]/60">
+      <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-[#6E3B00]/60 text-xs">
+        <div className="flex items-center gap-2 text-[#F9E6A8]/60">
           <span>Less</span>
           <div className="flex items-center gap-1">
-            <div className="w-3 h-3 rounded-sm bg-[#082226] border border-[#103b41]" />
-            <div className="w-3 h-3 rounded-sm bg-[#0D5C63]" />
-            <div className="w-3 h-3 rounded-sm bg-[#247B7B]" />
-            <div className="w-3 h-3 rounded-sm bg-[#44A1A0]" />
-            <div className="w-3 h-3 rounded-sm bg-[#78CDD7]" />
+            <div className="w-3 h-3 rounded-sm bg-[#1B0F03] border border-[#331C00]" />
+            <div className="w-3 h-3 rounded-sm bg-[#4D2A00]" />
+            <div className="w-3 h-3 rounded-sm bg-[#8C4B00]" />
+            <div className="w-3 h-3 rounded-sm bg-[#CC6F00]" />
+            <div className="w-3 h-3 rounded-sm bg-[#F2A900]" />
           </div>
           <span>More</span>
         </div>
 
-        {/* Selected date preview or quick prompt */}
         {inspectedDay ? (
-          <div className="flex items-center gap-2 bg-[#082226]/80 px-3 py-1 rounded-lg border border-[#247B7B]/60 text-[#FFFFFA]">
-            <Info className="w-3.5 h-3.5 text-[#78CDD7]" />
+          <div className="flex items-center gap-2 bg-[#1B0F03]/90 px-3 py-1 rounded-lg border border-[#6E3B00]/70 text-[#F9E6A8]">
+            <Info className="w-3.5 h-3.5 text-[#F2A900]" />
             <span>
               <strong>{formatDateDisplay(inspectedDay.dateStr)}</strong>: {inspectedDay.percentage}% (
               {inspectedDay.checked}/{inspectedDay.total} tasks)
@@ -334,13 +326,13 @@ export const ConsistencyHeatmap: React.FC<ConsistencyHeatmapProps> = ({
             </span>
             <button
               onClick={() => setInspectedDay(null)}
-              className="ml-1 text-[#FFFFFA]/60 hover:text-[#FFFFFA]"
+              className="ml-1 text-[#F9E6A8]/60 hover:text-[#F9E6A8]"
             >
               <X className="w-3.5 h-3.5" />
             </button>
           </div>
         ) : (
-          <span className="text-[11px] text-[#FFFFFA]/50 hidden sm:inline">
+          <span className="text-[11px] text-[#F9E6A8]/50 hidden sm:inline">
             Click any cell to inspect performance or add retrospective notes
           </span>
         )}

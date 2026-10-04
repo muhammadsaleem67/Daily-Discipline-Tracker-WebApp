@@ -7,7 +7,6 @@ export const StatCardsRow: React.FC = () => {
   const { dailyLogs, effectiveTasks, streak } = useData();
   const todayStr = getTodayDateStr();
 
-  // Compute 7-day & 30-day average and all-time total completed tasks
   const stats = useMemo(() => {
     const today = new Date();
     let sevenDayHits = 0;
@@ -16,7 +15,6 @@ export const StatCardsRow: React.FC = () => {
     let thirtyDayTotal = 0;
     let allTimeCheckedTasks = 0;
 
-    // Check last 7 days
     for (let i = 0; i < 7; i++) {
       const d = new Date(today);
       d.setDate(today.getDate() - i);
@@ -35,7 +33,6 @@ export const StatCardsRow: React.FC = () => {
       }
     }
 
-    // Check last 30 days
     for (let i = 0; i < 30; i++) {
       const d = new Date(today);
       d.setDate(today.getDate() - i);
@@ -54,7 +51,6 @@ export const StatCardsRow: React.FC = () => {
       }
     }
 
-    // Sum all time checked
     Object.values(dailyLogs).forEach((l) => {
       allTimeCheckedTasks += l.checkedTaskIds.length;
     });
@@ -75,29 +71,25 @@ export const StatCardsRow: React.FC = () => {
       title: 'Current Streak',
       value: `${streak.currentStreak} Days`,
       subtitle: `Best: ${streak.bestStreak} Days`,
-      icon: <Flame className="w-5 h-5 text-[#78CDD7]" />,
-      accentColor: '#78CDD7',
+      icon: <Flame className="w-5 h-5 text-[#F2A900]" />,
     },
     {
       title: '7-Day Consistency',
       value: `${stats.sevenDayPct}%`,
       subtitle: 'Trailing week target >= 80%',
-      icon: <Target className="w-5 h-5 text-[#78CDD7]" />,
-      accentColor: '#44A1A0',
+      icon: <Target className="w-5 h-5 text-[#F2A900]" />,
     },
     {
       title: '30-Day Rate',
       value: `${stats.thirtyDayPct}%`,
       subtitle: 'Rolling monthly discipline',
-      icon: <ShieldCheck className="w-5 h-5 text-[#78CDD7]" />,
-      accentColor: '#44A1A0',
+      icon: <ShieldCheck className="w-5 h-5 text-[#F2A900]" />,
     },
     {
       title: 'Completed Reps',
       value: `${stats.allTimeCheckedTasks}`,
       subtitle: `Across ${stats.totalLoggedDays} logged days`,
-      icon: <CheckCircle className="w-5 h-5 text-[#78CDD7]" />,
-      accentColor: '#78CDD7',
+      icon: <CheckCircle className="w-5 h-5 text-[#F2A900]" />,
     },
   ];
 
@@ -106,22 +98,22 @@ export const StatCardsRow: React.FC = () => {
       {cards.map((card, idx) => (
         <div
           key={idx}
-          className="bg-[#0D5C63]/90 border border-[#247B7B]/70 rounded-xl p-4 backdrop-blur-sm shadow-md flex flex-col justify-between hover:border-[#44A1A0] transition-colors"
+          className="bg-[#4D2A00]/85 border border-[#6E3B00] rounded-xl p-4 backdrop-blur-sm shadow-md flex flex-col justify-between hover:border-[#CC6F00] transition-colors"
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs uppercase tracking-wider text-[#FFFFFA]/70 font-semibold truncate">
+            <span className="text-xs uppercase tracking-wider text-[#F9E6A8]/70 font-semibold truncate">
               {card.title}
             </span>
-            <div className="w-7 h-7 rounded-lg bg-[#082226]/80 border border-[#247B7B]/60 flex items-center justify-center shrink-0">
+            <div className="w-7 h-7 rounded-lg bg-[#1B0F03]/90 border border-[#6E3B00]/70 flex items-center justify-center shrink-0">
               {card.icon}
             </div>
           </div>
 
           <div className="mt-3">
-            <div className="text-2xl sm:text-3xl font-extrabold text-[#FFFFFA] tracking-tight tabular-nums">
+            <div className="text-2xl sm:text-3xl font-extrabold text-[#F9E6A8] tracking-tight tabular-nums">
               {card.value}
             </div>
-            <div className="text-[11px] text-[#FFFFFA]/60 font-medium mt-0.5 truncate">
+            <div className="text-[11px] text-[#F9E6A8]/60 font-medium mt-0.5 truncate">
               {card.subtitle}
             </div>
           </div>

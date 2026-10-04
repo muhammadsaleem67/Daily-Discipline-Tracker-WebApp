@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
   Settings,
-  Clock,
   Sparkles,
   Plus,
   Trash2,
@@ -16,7 +15,7 @@ import {
 } from 'lucide-react';
 import { useData } from '../../context/DataContext';
 import { useAuth } from '../../context/AuthContext';
-import { PrayerLink, Task, TaskDays } from '../../types';
+import { PrayerLink, TaskDays } from '../../types';
 
 export const SettingsView: React.FC = () => {
   const { user, logout, switchUser, allUsers } = useAuth();
@@ -26,7 +25,6 @@ export const SettingsView: React.FC = () => {
     settings,
     updatePrayerTimes,
     addTask,
-    updateTask,
     deleteTask,
     reorderTasks,
     seedSampleData,
@@ -35,13 +33,11 @@ export const SettingsView: React.FC = () => {
     importDataJson,
   } = useData();
 
-  // Local state for prayer times editing
   const [fajr, setFajr] = useState(settings.prayerTimes.fajr);
   const [maghrib, setMaghrib] = useState(settings.prayerTimes.maghrib);
   const [isha, setIsha] = useState(settings.prayerTimes.isha);
   const [prayerSaved, setPrayerSaved] = useState(false);
 
-  // New task form state
   const [isAddingTask, setIsAddingTask] = useState(false);
   const [newTaskName, setNewTaskName] = useState('');
   const [newTaskPhase, setNewTaskPhase] = useState('Morning Routine');
@@ -49,7 +45,6 @@ export const SettingsView: React.FC = () => {
   const [newTaskDays, setNewTaskDays] = useState<TaskDays>('all');
   const [newTaskPrayer, setNewTaskPrayer] = useState<PrayerLink>(null);
 
-  // Import / Export notification
   const [importStatus, setImportStatus] = useState<string | null>(null);
 
   const handleSavePrayerTimes = (e: React.FormEvent) => {
@@ -127,14 +122,14 @@ export const SettingsView: React.FC = () => {
   return (
     <div className="flex flex-col gap-6">
       {/* Top Header */}
-      <div className="bg-[#0D5C63]/90 border border-[#247B7B]/70 rounded-xl p-5 backdrop-blur-md shadow-lg flex items-center justify-between">
+      <div className="bg-[#4D2A00]/85 border border-[#6E3B00] rounded-xl p-5 backdrop-blur-md shadow-lg flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Settings className="w-5 h-5 text-[#78CDD7]" />
+          <Settings className="w-5 h-5 text-[#F2A900]" />
           <div>
-            <h1 className="text-xl sm:text-2xl font-extrabold text-[#FFFFFA] tracking-tight">
+            <h1 className="text-xl sm:text-2xl font-extrabold text-[#F9E6A8] tracking-tight">
               Settings & Routine Architecture
             </h1>
-            <p className="text-xs sm:text-sm text-[#FFFFFA]/75 font-normal">
+            <p className="text-xs sm:text-sm text-[#F9E6A8]/75 font-normal">
               Customize dynamic prayer sync, habit schedules, database backups, and account privacy.
             </p>
           </div>
@@ -145,22 +140,22 @@ export const SettingsView: React.FC = () => {
         {/* Left Column: Prayer Times + Account */}
         <div className="flex flex-col gap-6">
           {/* Dynamic Prayer Times */}
-          <div className="bg-[#0D5C63]/90 border border-[#247B7B]/70 rounded-xl p-5 backdrop-blur-sm shadow-md flex flex-col gap-4">
+          <div className="bg-[#4D2A00]/85 border border-[#6E3B00] rounded-xl p-5 backdrop-blur-sm shadow-md flex flex-col gap-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-[#78CDD7]" />
-                <h3 className="font-bold text-sm text-[#FFFFFA] uppercase tracking-wider">
+                <Sparkles className="w-4 h-4 text-[#F2A900]" />
+                <h3 className="font-bold text-sm text-[#F9E6A8] uppercase tracking-wider">
                   Dynamic Prayer Times
                 </h3>
               </div>
               {prayerSaved && (
-                <span className="text-[11px] text-[#78CDD7] flex items-center gap-1">
+                <span className="text-[11px] text-[#F2A900] flex items-center gap-1 font-bold">
                   <Check className="w-3 h-3" /> Updated
                 </span>
               )}
             </div>
 
-            <p className="text-xs text-[#FFFFFA]/70 leading-relaxed">
+            <p className="text-xs text-[#F9E6A8]/70 leading-relaxed">
               Any habit linked to Fajr, Maghrib, or Isha will immediately synchronize its scheduled
               time on the dashboard.
             </p>
@@ -168,45 +163,45 @@ export const SettingsView: React.FC = () => {
             <form onSubmit={handleSavePrayerTimes} className="flex flex-col gap-3">
               <div className="grid grid-cols-3 gap-2">
                 <div>
-                  <label className="text-[11px] font-semibold text-[#FFFFFA]/80 block mb-1">
+                  <label className="text-[11px] font-semibold text-[#F9E6A8]/80 block mb-1">
                     Fajr
                   </label>
                   <input
                     type="time"
                     value={fajr}
                     onChange={(e) => setFajr(e.target.value)}
-                    className="w-full bg-[#082226] border border-[#247B7B] rounded-lg px-2 py-1.5 text-xs text-[#FFFFFA] font-mono focus:outline-none focus:border-[#78CDD7]"
+                    className="w-full bg-[#1B0F03] border border-[#6E3B00] rounded-lg px-2 py-1.5 text-xs text-[#F9E6A8] font-mono focus:outline-none focus:border-[#F2A900]"
                   />
                 </div>
 
                 <div>
-                  <label className="text-[11px] font-semibold text-[#FFFFFA]/80 block mb-1">
+                  <label className="text-[11px] font-semibold text-[#F9E6A8]/80 block mb-1">
                     Maghrib
                   </label>
                   <input
                     type="time"
                     value={maghrib}
                     onChange={(e) => setMaghrib(e.target.value)}
-                    className="w-full bg-[#082226] border border-[#247B7B] rounded-lg px-2 py-1.5 text-xs text-[#FFFFFA] font-mono focus:outline-none focus:border-[#78CDD7]"
+                    className="w-full bg-[#1B0F03] border border-[#6E3B00] rounded-lg px-2 py-1.5 text-xs text-[#F9E6A8] font-mono focus:outline-none focus:border-[#F2A900]"
                   />
                 </div>
 
                 <div>
-                  <label className="text-[11px] font-semibold text-[#FFFFFA]/80 block mb-1">
+                  <label className="text-[11px] font-semibold text-[#F9E6A8]/80 block mb-1">
                     Isha
                   </label>
                   <input
                     type="time"
                     value={isha}
                     onChange={(e) => setIsha(e.target.value)}
-                    className="w-full bg-[#082226] border border-[#247B7B] rounded-lg px-2 py-1.5 text-xs text-[#FFFFFA] font-mono focus:outline-none focus:border-[#78CDD7]"
+                    className="w-full bg-[#1B0F03] border border-[#6E3B00] rounded-lg px-2 py-1.5 text-xs text-[#F9E6A8] font-mono focus:outline-none focus:border-[#F2A900]"
                   />
                 </div>
               </div>
 
               <button
                 type="submit"
-                className="mt-1 w-full py-2 bg-[#44A1A0] hover:bg-[#78CDD7] text-[#082226] font-bold text-xs rounded-lg transition-colors"
+                className="mt-1 w-full py-2 bg-[#CC6F00] hover:bg-[#F2A900] text-[#1B0F03] font-bold text-xs rounded-lg transition-colors shadow-md"
               >
                 Apply Dynamic Prayer Schedule
               </button>
@@ -214,38 +209,37 @@ export const SettingsView: React.FC = () => {
           </div>
 
           {/* Account & Profile Switcher */}
-          <div className="bg-[#0D5C63]/90 border border-[#247B7B]/70 rounded-xl p-5 backdrop-blur-sm shadow-md flex flex-col gap-4">
+          <div className="bg-[#4D2A00]/85 border border-[#6E3B00] rounded-xl p-5 backdrop-blur-sm shadow-md flex flex-col gap-4">
             <div className="flex items-center gap-2">
-              <UserCheck className="w-4 h-4 text-[#78CDD7]" />
-              <h3 className="font-bold text-sm text-[#FFFFFA] uppercase tracking-wider">
+              <UserCheck className="w-4 h-4 text-[#F2A900]" />
+              <h3 className="font-bold text-sm text-[#F9E6A8] uppercase tracking-wider">
                 User Account & Privacy
               </h3>
             </div>
 
-            <div className="bg-[#082226]/80 border border-[#247B7B]/50 rounded-lg p-3 text-xs flex flex-col gap-1.5">
+            <div className="bg-[#1B0F03]/85 border border-[#6E3B00]/60 rounded-lg p-3 text-xs flex flex-col gap-1.5">
               <div className="flex items-center justify-between">
-                <span className="text-[#FFFFFA]/60">Active Profile:</span>
-                <strong className="text-[#FFFFFA]">{user?.name}</strong>
+                <span className="text-[#F9E6A8]/60">Active Profile:</span>
+                <strong className="text-[#F9E6A8]">{user?.name}</strong>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-[#FFFFFA]/60">Email:</span>
-                <span className="text-[#78CDD7] font-mono">{user?.email}</span>
+                <span className="text-[#F9E6A8]/60">Email:</span>
+                <span className="text-[#F2A900] font-mono">{user?.email}</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-[#FFFFFA]/60">Data Partition:</span>
-                <span className="text-[#FFFFFA]/80 font-mono">Isolated (Private)</span>
+                <span className="text-[#F9E6A8]/60">Data Partition:</span>
+                <span className="text-[#F9E6A8]/80 font-mono">Isolated (Private)</span>
               </div>
             </div>
 
-            {/* Switch User dropdown */}
             <div>
-              <label className="text-[11px] font-semibold text-[#FFFFFA]/70 block mb-1">
+              <label className="text-[11px] font-semibold text-[#F9E6A8]/70 block mb-1">
                 Switch Registered Account
               </label>
               <select
                 value={user?.id}
                 onChange={(e) => switchUser(e.target.value)}
-                className="w-full bg-[#082226] border border-[#247B7B] rounded-lg px-3 py-2 text-xs text-[#FFFFFA] focus:outline-none focus:border-[#78CDD7]"
+                className="w-full bg-[#1B0F03] border border-[#6E3B00] rounded-lg px-3 py-2 text-xs text-[#F9E6A8] focus:outline-none focus:border-[#F2A900]"
               >
                 {allUsers.map((u) => (
                   <option key={u.id} value={u.id}>
@@ -257,23 +251,23 @@ export const SettingsView: React.FC = () => {
 
             <button
               onClick={logout}
-              className="py-2 bg-[#082226] hover:bg-[#103b41] border border-[#247B7B] rounded-lg text-xs font-semibold text-[#FFFFFA]/80 hover:text-[#FFFFFA] transition-colors"
+              className="py-2 bg-[#1B0F03] hover:bg-[#331C00] border border-[#6E3B00] rounded-lg text-xs font-semibold text-[#F9E6A8]/80 hover:text-[#F9E6A8] transition-colors"
             >
               Sign Out
             </button>
           </div>
 
           {/* Database Backup & Demo Tools */}
-          <div className="bg-[#0D5C63]/90 border border-[#247B7B]/70 rounded-xl p-5 backdrop-blur-sm shadow-md flex flex-col gap-3">
+          <div className="bg-[#4D2A00]/85 border border-[#6E3B00] rounded-xl p-5 backdrop-blur-sm shadow-md flex flex-col gap-3">
             <div className="flex items-center gap-2">
-              <Database className="w-4 h-4 text-[#78CDD7]" />
-              <h3 className="font-bold text-sm text-[#FFFFFA] uppercase tracking-wider">
+              <Database className="w-4 h-4 text-[#F2A900]" />
+              <h3 className="font-bold text-sm text-[#F9E6A8] uppercase tracking-wider">
                 Data Management
               </h3>
             </div>
 
             {importStatus && (
-              <div className="p-2 bg-[#103b41] text-[#78CDD7] text-xs rounded border border-[#247B7B]">
+              <div className="p-2 bg-[#331C00] text-[#F2A900] text-xs rounded border border-[#6E3B00]">
                 {importStatus}
               </div>
             )}
@@ -281,14 +275,14 @@ export const SettingsView: React.FC = () => {
             <div className="grid grid-cols-2 gap-2">
               <button
                 onClick={handleExport}
-                className="flex items-center justify-center gap-1.5 py-2 bg-[#082226] hover:bg-[#103b41] border border-[#247B7B] rounded-lg text-xs font-semibold text-[#FFFFFA] transition-colors"
+                className="flex items-center justify-center gap-1.5 py-2 bg-[#1B0F03] hover:bg-[#331C00] border border-[#6E3B00] rounded-lg text-xs font-semibold text-[#F9E6A8] transition-colors"
               >
-                <Download className="w-3.5 h-3.5 text-[#78CDD7]" />
+                <Download className="w-3.5 h-3.5 text-[#F2A900]" />
                 Export JSON
               </button>
 
-              <label className="flex items-center justify-center gap-1.5 py-2 bg-[#082226] hover:bg-[#103b41] border border-[#247B7B] rounded-lg text-xs font-semibold text-[#FFFFFA] transition-colors cursor-pointer">
-                <Upload className="w-3.5 h-3.5 text-[#78CDD7]" />
+              <label className="flex items-center justify-center gap-1.5 py-2 bg-[#1B0F03] hover:bg-[#331C00] border border-[#6E3B00] rounded-lg text-xs font-semibold text-[#F9E6A8] transition-colors cursor-pointer">
+                <Upload className="w-3.5 h-3.5 text-[#F2A900]" />
                 Import JSON
                 <input
                   type="file"
@@ -301,7 +295,7 @@ export const SettingsView: React.FC = () => {
 
             <button
               onClick={seedSampleData}
-              className="mt-1 py-2 bg-[#103b41] hover:bg-[#247B7B] text-[#FFFFFA] font-medium text-xs rounded-lg transition-colors border border-[#247B7B]"
+              className="mt-1 py-2 bg-[#331C00] hover:bg-[#6E3B00] text-[#F9E6A8] font-medium text-xs rounded-lg transition-colors border border-[#6E3B00]"
             >
               Seed 60-Day Discipline History (Demo)
             </button>
@@ -312,7 +306,7 @@ export const SettingsView: React.FC = () => {
                   resetToDefaults();
                 }
               }}
-              className="py-1.5 text-xs text-[#FFFFFA]/50 hover:text-red-400 transition-colors flex items-center justify-center gap-1"
+              className="py-1.5 text-xs text-[#F9E6A8]/50 hover:text-red-400 transition-colors flex items-center justify-center gap-1"
             >
               <RotateCcw className="w-3 h-3" /> Reset Routines to Default
             </button>
@@ -321,20 +315,20 @@ export const SettingsView: React.FC = () => {
 
         {/* Right 2 Columns: Full Task Architect / Editor */}
         <div className="lg:col-span-2 flex flex-col gap-4">
-          <div className="bg-[#0D5C63]/90 border border-[#247B7B]/70 rounded-xl p-5 backdrop-blur-sm shadow-md flex flex-col gap-4">
+          <div className="bg-[#4D2A00]/85 border border-[#6E3B00] rounded-xl p-5 backdrop-blur-sm shadow-md flex flex-col gap-4">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="font-bold text-base text-[#FFFFFA] tracking-wide">
+                <h3 className="font-bold text-base text-[#F9E6A8] tracking-wide">
                   Routine Architect (Task Editor)
                 </h3>
-                <span className="text-[11px] text-[#FFFFFA]/60 font-medium">
+                <span className="text-[11px] text-[#F9E6A8]/60 font-medium">
                   {tasks.length} total routine tasks · Add, reorder, adjust schedules & prayer links
                 </span>
               </div>
 
               <button
                 onClick={() => setIsAddingTask(!isAddingTask)}
-                className="inline-flex items-center gap-1.5 px-3 py-2 bg-[#44A1A0] hover:bg-[#78CDD7] text-[#082226] font-bold text-xs rounded-lg transition-colors"
+                className="inline-flex items-center gap-1.5 px-3 py-2 bg-[#CC6F00] hover:bg-[#F2A900] text-[#1B0F03] font-bold text-xs rounded-lg transition-colors shadow-md"
               >
                 <Plus className="w-3.5 h-3.5 stroke-[3]" />
                 Add Habit
@@ -345,15 +339,15 @@ export const SettingsView: React.FC = () => {
             {isAddingTask && (
               <form
                 onSubmit={handleCreateTask}
-                className="bg-[#082226]/90 border border-[#44A1A0]/60 rounded-xl p-4 flex flex-col gap-3"
+                className="bg-[#1B0F03]/95 border border-[#F2A900]/70 rounded-xl p-4 flex flex-col gap-3"
               >
-                <div className="text-xs font-bold text-[#78CDD7] uppercase tracking-wider">
+                <div className="text-xs font-bold text-[#F2A900] uppercase tracking-wider">
                   New Routine Element
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div className="sm:col-span-2">
-                    <label className="text-[11px] font-semibold text-[#FFFFFA]/70 block mb-1">
+                    <label className="text-[11px] font-semibold text-[#F9E6A8]/70 block mb-1">
                       Habit / Task Description
                     </label>
                     <input
@@ -362,12 +356,12 @@ export const SettingsView: React.FC = () => {
                       placeholder="e.g. Read 20 pages of technical literature"
                       value={newTaskName}
                       onChange={(e) => setNewTaskName(e.target.value)}
-                      className="w-full bg-[#0D5C63] border border-[#247B7B] rounded-lg px-3 py-2 text-xs text-[#FFFFFA] focus:outline-none focus:border-[#78CDD7]"
+                      className="w-full bg-[#4D2A00] border border-[#6E3B00] rounded-lg px-3 py-2 text-xs text-[#F9E6A8] focus:outline-none focus:border-[#F2A900]"
                     />
                   </div>
 
                   <div>
-                    <label className="text-[11px] font-semibold text-[#FFFFFA]/70 block mb-1">
+                    <label className="text-[11px] font-semibold text-[#F9E6A8]/70 block mb-1">
                       Routine Phase
                     </label>
                     <input
@@ -375,7 +369,7 @@ export const SettingsView: React.FC = () => {
                       list="phases-list"
                       value={newTaskPhase}
                       onChange={(e) => setNewTaskPhase(e.target.value)}
-                      className="w-full bg-[#0D5C63] border border-[#247B7B] rounded-lg px-3 py-2 text-xs text-[#FFFFFA] focus:outline-none focus:border-[#78CDD7]"
+                      className="w-full bg-[#4D2A00] border border-[#6E3B00] rounded-lg px-3 py-2 text-xs text-[#F9E6A8] focus:outline-none focus:border-[#F2A900]"
                     />
                     <datalist id="phases-list">
                       {existingPhases.map((p) => (
@@ -385,25 +379,25 @@ export const SettingsView: React.FC = () => {
                   </div>
 
                   <div>
-                    <label className="text-[11px] font-semibold text-[#FFFFFA]/70 block mb-1">
+                    <label className="text-[11px] font-semibold text-[#F9E6A8]/70 block mb-1">
                       Scheduled Time
                     </label>
                     <input
                       type="time"
                       value={newTaskTime}
                       onChange={(e) => setNewTaskTime(e.target.value)}
-                      className="w-full bg-[#0D5C63] border border-[#247B7B] rounded-lg px-3 py-2 text-xs text-[#FFFFFA] font-mono focus:outline-none focus:border-[#78CDD7]"
+                      className="w-full bg-[#4D2A00] border border-[#6E3B00] rounded-lg px-3 py-2 text-xs text-[#F9E6A8] font-mono focus:outline-none focus:border-[#F2A900]"
                     />
                   </div>
 
                   <div>
-                    <label className="text-[11px] font-semibold text-[#FFFFFA]/70 block mb-1">
+                    <label className="text-[11px] font-semibold text-[#F9E6A8]/70 block mb-1">
                       Recurrence Days
                     </label>
                     <select
                       value={newTaskDays}
                       onChange={(e) => setNewTaskDays(e.target.value as TaskDays)}
-                      className="w-full bg-[#0D5C63] border border-[#247B7B] rounded-lg px-3 py-2 text-xs text-[#FFFFFA] focus:outline-none focus:border-[#78CDD7]"
+                      className="w-full bg-[#4D2A00] border border-[#6E3B00] rounded-lg px-3 py-2 text-xs text-[#F9E6A8] focus:outline-none focus:border-[#F2A900]"
                     >
                       <option value="all">Every Single Day</option>
                       <option value="weekdays">Weekdays Only (Mon–Fri)</option>
@@ -412,7 +406,7 @@ export const SettingsView: React.FC = () => {
                   </div>
 
                   <div>
-                    <label className="text-[11px] font-semibold text-[#FFFFFA]/70 block mb-1">
+                    <label className="text-[11px] font-semibold text-[#F9E6A8]/70 block mb-1">
                       Link to Prayer Time
                     </label>
                     <select
@@ -420,7 +414,7 @@ export const SettingsView: React.FC = () => {
                       onChange={(e) =>
                         setNewTaskPrayer((e.target.value as PrayerLink) || null)
                       }
-                      className="w-full bg-[#0D5C63] border border-[#247B7B] rounded-lg px-3 py-2 text-xs text-[#FFFFFA] focus:outline-none focus:border-[#78CDD7]"
+                      className="w-full bg-[#4D2A00] border border-[#6E3B00] rounded-lg px-3 py-2 text-xs text-[#F9E6A8] focus:outline-none focus:border-[#F2A900]"
                     >
                       <option value="">None (Fixed Clock Time)</option>
                       <option value="fajr">Fajr</option>
@@ -430,17 +424,17 @@ export const SettingsView: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="flex items-center justify-end gap-2 mt-2 pt-2 border-t border-[#247B7B]/40">
+                <div className="flex items-center justify-end gap-2 mt-2 pt-2 border-t border-[#6E3B00]/60">
                   <button
                     type="button"
                     onClick={() => setIsAddingTask(false)}
-                    className="px-3 py-1.5 text-xs text-[#FFFFFA]/70 hover:text-[#FFFFFA]"
+                    className="px-3 py-1.5 text-xs text-[#F9E6A8]/70 hover:text-[#F9E6A8]"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="px-4 py-1.5 bg-[#44A1A0] text-[#082226] font-bold text-xs rounded-lg hover:bg-[#78CDD7]"
+                    className="px-4 py-1.5 bg-[#CC6F00] text-[#1B0F03] font-bold text-xs rounded-lg hover:bg-[#F2A900]"
                   >
                     Add to Routine
                   </button>
@@ -453,15 +447,14 @@ export const SettingsView: React.FC = () => {
               {effectiveTasks.map((t, idx) => (
                 <div
                   key={t.id}
-                  className="bg-[#082226]/80 border border-[#247B7B]/50 rounded-lg p-3 flex items-center justify-between gap-3 hover:border-[#44A1A0]/60 transition-colors"
+                  className="bg-[#1B0F03]/85 border border-[#6E3B00]/60 rounded-lg p-3 flex items-center justify-between gap-3 hover:border-[#CC6F00] transition-colors"
                 >
-                  {/* Left: Reorder arrows + Info */}
                   <div className="flex items-center gap-3 flex-1 min-w-0">
                     <div className="flex flex-col items-center">
                       <button
                         onClick={() => handleMoveTask(idx, 'up')}
                         disabled={idx === 0}
-                        className="p-1 rounded text-[#FFFFFA]/40 hover:text-[#FFFFFA] disabled:opacity-20 transition-colors"
+                        className="p-1 rounded text-[#F9E6A8]/40 hover:text-[#F9E6A8] disabled:opacity-20 transition-colors"
                         title="Move Up"
                       >
                         <ChevronUp className="w-3.5 h-3.5" />
@@ -469,7 +462,7 @@ export const SettingsView: React.FC = () => {
                       <button
                         onClick={() => handleMoveTask(idx, 'down')}
                         disabled={idx === tasks.length - 1}
-                        className="p-1 rounded text-[#FFFFFA]/40 hover:text-[#FFFFFA] disabled:opacity-20 transition-colors"
+                        className="p-1 rounded text-[#F9E6A8]/40 hover:text-[#F9E6A8] disabled:opacity-20 transition-colors"
                         title="Move Down"
                       >
                         <ChevronDown className="w-3.5 h-3.5" />
@@ -477,19 +470,19 @@ export const SettingsView: React.FC = () => {
                     </div>
 
                     <div className="flex flex-col min-w-0">
-                      <span className="text-sm font-semibold text-[#FFFFFA] truncate">
+                      <span className="text-sm font-semibold text-[#F9E6A8] truncate">
                         {t.name}
                       </span>
-                      <div className="flex items-center gap-2 text-[11px] text-[#FFFFFA]/60 mt-0.5">
-                        <span className="text-[#78CDD7] font-medium">{t.phase}</span>
+                      <div className="flex items-center gap-2 text-[11px] text-[#F9E6A8]/60 mt-0.5">
+                        <span className="text-[#F2A900] font-medium">{t.phase}</span>
                         <span>·</span>
-                        <span className="font-mono tabular-nums text-[#FFFFFA]/80">
+                        <span className="font-mono tabular-nums text-[#F9E6A8]/80">
                           {t.time}
                         </span>
                         {t.prayerLinked && (
                           <>
                             <span>·</span>
-                            <span className="capitalize text-[#78CDD7]">
+                            <span className="capitalize text-[#F2A900]">
                               Linked to {t.prayerLinked}
                             </span>
                           </>
@@ -506,11 +499,10 @@ export const SettingsView: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Right: Quick actions */}
                   <div className="flex items-center gap-1 shrink-0">
                     <button
                       onClick={() => deleteTask(t.id)}
-                      className="p-2 rounded hover:bg-[#103b41] text-[#FFFFFA]/50 hover:text-red-400 transition-colors"
+                      className="p-2 rounded hover:bg-[#331C00] text-[#F9E6A8]/50 hover:text-red-400 transition-colors"
                       title="Delete Task"
                     >
                       <Trash2 className="w-4 h-4" />
